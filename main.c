@@ -3,8 +3,7 @@
 /*Función que inserta números aleatorios en una lista*/
 void inserta_datos_de_prueba(Lista lista);
 
-int main()
-{
+int main(){
     // Se crea la lista
     Lista lista = crea_lista();
     printf("La lista tiene %d elementos\n", longitud(lista));
@@ -63,18 +62,41 @@ int cmp_int(const void* a, const void* b){
 
 /*Función que ordena una lista usando una función comparadora*/
 //Recomiendo apoyarte de tu función 'cmp_int', qsort y un arreglo
-void ordena_lista(Lista, int(*cmp)(const void*, const void*)){
+void ordena_lista(Lista l, int(*cmp)(const void*, const void*)){
+	
      }
 
 /*Libera(free) la memoria ocupada por la lista, sus elementos y valores*/
 //No se te olvide liberar la memoria de cada elemento y su valor.
-void borra_lista(Lista){
+void borra_lista(Lista l){
+	
      }
 
 /*Remueve un elemento de una lista en una posición dada*/
 //Si la posición no coincide con ningún elemento se regresa NULL
-Elemento *quita_elemento(Lista, size_t posicion){
-         }
+Elemento *quita_elemento(Lista lista, size_t posicion){
+  size_t n = 0;
+  Elemento *aux = *lista;
+  Elemento *elemAnterior = aux, *elemActual = aux;
+  void *valores = NULL;
+
+  size_t numeroDeElementos = longitud(lista);
+  if(posicion >= numeroDeElementos || posicion < 0)
+    return NULL;
+
+  for(n = 0; n < posicion; n++){
+    elemAnterior = elemActual;
+    elemActual = elemActual->siguiente;
+  }
+
+  if(elemActual == aux)
+    aux = aux->siguiente;
+  else
+    valores = elemActual->valor;
+  free(elemActual);
+  *lista = aux;
+  return valores;
+}
 
 /*Imprime los elementos de la lista como enteros*/
 void imprime_lista_int(Lista lista){
@@ -82,24 +104,30 @@ void imprime_lista_int(Lista lista){
 
 /*Crea una lista vacía*/
 Lista crea_lista(){
-      struct Lista *l;
-      l = NULL;
-      }
+  Elemento *q = NULL;
+  q = malloc(sizeof(Elemento));
+}
 
 /*Inserta un elemento en la lista y se regresa el nuevo tamaño de la lista*/
-int inserta_elemento(Lista lista, void *valor){
-    return 0;
-    }
+int inserta_elemento(Lista lista, void *dato){  
+  Elemento *aux = *lista;
+  Elemento *temp = NULL;
+  temp = (Elemento *)malloc(sizeof(Elemento));
+  temp->valor = dato;
+  temp->siguiente = aux;
+  aux = temp;
+  *lista = aux;
+  return longitud(lista);
+}
 
 /*Regresa el número de elementos en la lista*/
 size_t longitud(Lista lista){
-       Lista aux;
-       int n;
-       n = 0;
-       aux = lista;
-       while(aux !=  NULL){
-                 ++n;
-                 aux = p.siguiente;
-                 }
-       return n;
-       }
+  Elemento *aux = *lista;
+  size_t n;
+  n = 0;
+  while(aux !=  NULL){
+    n++;
+    aux = aux->siguiente;
+  }
+  return n;
+}

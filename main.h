@@ -10,7 +10,7 @@
 struct elemento{
         void *valor;
         struct elemento *siguiente;
-        }
+        };
         
 // defino alias para los datos (struct elemento) y (Elemento**)
 typedef struct elemento Elemento; /*No cambies esta línea*/
