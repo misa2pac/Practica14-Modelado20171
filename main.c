@@ -67,10 +67,20 @@ void ordena_lista(Lista l, int(*cmp)(const void*, const void*)){
      }
 
 /*Libera(free) la memoria ocupada por la lista, sus elementos y valores*/
-//No se te olvide liberar la memoria de cada elemento y su valor.
-void borra_lista(Lista l){
-	
-     }
+//No se te olvide liberar la memoria de cada elementoslemento y su valor.
+void borra_lista(Lista lista){
+  size_t n = 0;
+  for(n = 0; n < longitud(lista)-1; n++){
+    quita_elemento(lista,n);
+  }
+  Elemento *aux = *lista, *temp = NULL;
+  while(aux != NULL){
+    temp = aux;
+    aux = aux->siguiente;
+    free(temp);
+  }
+  *lista = NULL;
+}
 
 /*Remueve un elemento de una lista en una posición dada*/
 //Si la posición no coincide con ningún elemento se regresa NULL
@@ -100,6 +110,7 @@ Elemento *quita_elemento(Lista lista, size_t posicion){
 
 /*Imprime los elementos de la lista como enteros*/
 void imprime_lista_int(Lista lista){
+
      }
 
 /*Crea una lista vacía*/
