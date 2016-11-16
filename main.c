@@ -62,9 +62,34 @@ int cmp_int(const void* a, const void* b){
 
 /*Función que ordena una lista usando una función comparadora*/
 //Recomiendo apoyarte de tu función 'cmp_int', qsort y un arreglo
-void ordena_lista(Lista l, int(*cmp)(const void*, const void*)){
-	
-     }
+void ordena_lista(Lista lista, int(*cmp)(const void*, const void*)){
+  int i,j;
+  Elemento *aux,*temp,*elemAnterior;
+  for(i = 1; i < longitud(lista); i++){
+    j = 1;
+    aux = *lista;
+    elemAnterior = NULL;
+    while(j <= (longitud(lista) - i)){
+      temp = aux->siguiente;
+      if((*cmp)(aux->valor,temp->valor) == 1){
+        aux->siguiente = temp->siguiente;
+        temp->siguiente = aux;
+        if(elemAnterior == NULL){
+          *lista = temp;
+          elemAnterior = *lista;
+        }else{
+          elemAnterior->siguiente = temp;
+          elemAnterior = temp;
+        }
+        aux = elemAnterior->siguiente;
+      }else{
+        elemAnterior = aux;
+        aux = temp;
+      }
+      j++;
+    }
+  }
+}
 
 /*Libera(free) la memoria ocupada por la lista, sus elementos y valores*/
 //No se te olvide liberar la memoria de cada elementoslemento y su valor.
@@ -110,8 +135,16 @@ Elemento *quita_elemento(Lista lista, size_t posicion){
 
 /*Imprime los elementos de la lista como enteros*/
 void imprime_lista_int(Lista lista){
-
-     }
+  size_t n = 0;
+  Elemento *aux = *lista;
+  printf("[");
+  for(n = 0; n < longitud(lista); n++){
+    int _a = *(int *)aux->valor;
+    printf("%d ",_a);
+    aux = aux->siguiente;
+  }
+  printf("]\n");
+}
 
 /*Crea una lista vacía*/
 Lista crea_lista(){
